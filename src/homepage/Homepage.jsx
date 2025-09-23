@@ -30,7 +30,7 @@ function Homepage() {
 
   return (
     <div className="px-6 py-10 bg-gray-800 min-h-screen">
-      <h2 className="text-4xl mb-10 text-center text-orange-500">Cryptos</h2>
+      <h2 className="text-5xl mb-5 text-center text-orange-500">Cryptos</h2>
       <Search />
 
       <div className="overflow-x-auto">
