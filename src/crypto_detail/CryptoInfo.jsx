@@ -29,8 +29,7 @@ function CoinDetails() {
           new Date(p[0]).toLocaleDateString()
         );
         const prices = chartJson.prices.map((p) => p[1]);
-
-        setChartData({
+      setChartData({
           labels,
           datasets: [
             {
@@ -80,11 +79,9 @@ function CoinDetails() {
 
       <div className="text-white">
         <h2 className="text-2xl font-semibold mb-2">Description</h2>
-        <p
-          dangerouslySetInnerHTML={{
-            __html: coinData.description.en
-          }}
-        />
+        <p className="whitespace-pre-line">
+            {coinData.description?.en}
+        </p>
       </div>
     </div>
   );

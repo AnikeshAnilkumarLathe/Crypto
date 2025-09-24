@@ -6,6 +6,8 @@ const AppProvider = ({ children }) => {
   const [crypto, setCrypto] = useState([]);
   const [load, setLoad] = useState(true);
   const [results, setResults] = useState("");
+  const [selectedPrice, setSelectedPrice] =useState("")
+  const [selectedCap, setSelectedCap]= useState("")
 
   useEffect(() => {
     const fetchCrypto = async () => {
@@ -15,6 +17,7 @@ const AppProvider = ({ children }) => {
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
         );
         const data = await res.json();
+        console.log(data)
         setCrypto(data || []);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -28,10 +31,11 @@ const AppProvider = ({ children }) => {
     }, 1000);
 
     return () => clearTimeout(delay);
-  }, []); // fetch only once
+  }, []); 
 
   return (
-    <AppContext.Provider value={{ crypto, load, results, setResults }}>
+    <AppContext.Provider value={{ crypto, load, results, setResults, selectedPrice, 
+    setSelectedPrice, selectedCap, setSelectedCap}}>
       {children}
     </AppContext.Provider>
   );
