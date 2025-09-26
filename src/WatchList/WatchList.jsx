@@ -33,7 +33,6 @@ function WatchList() {
               <th className="px-4 py-2">Market Cap</th>
               <th className="px-4 py-2">24h Change</th>
               <th className="px-4 py-2">Volume</th>
-              <th className="px-4 py-2">Action</th>
             </tr>
           </thead>
           <tbody>

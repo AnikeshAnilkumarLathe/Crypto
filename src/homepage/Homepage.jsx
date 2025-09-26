@@ -20,13 +20,13 @@ function Homepage() {
 
   const parseRange2 = (range) => {
     if (!range) return { min2: 0, max2: Infinity };
-    if (range === "100000000000+") return { min2: 100000000000, max2: Infinity };
+    if (range === "100000000000+") return {min2:100000000000, max2: Infinity};
     const [min2, max2] = range.split("-").map(Number);
     return { min2, max2 };
   };
 
-  const { min1, max1 } = parseRange1(selectedPrice);
-  const { min2, max2 } = parseRange2(selectedCap);
+  const {min1, max1} = parseRange1(selectedPrice);
+  const {min2, max2} = parseRange2(selectedCap);
 
   const filteredCoins = crypto.filter(
     (c) =>
@@ -35,8 +35,7 @@ function Homepage() {
       (c.current_price >= min1 && c.current_price <= max1) &&  
       (c.market_cap >= min2 && c.market_cap <= max2) &&
       (gainLoss=== "gainers" ? c.price_change_percentage_24h>0
-        : gainLoss=== "losers" ? c.price_change_percentage_24h<0 
-        : true )
+        :gainLoss=== "losers" ? c.price_change_percentage_24h<0 :true )
       
   );
   if (gainLoss=== "gainers"){
@@ -57,7 +56,7 @@ function Homepage() {
   if (load)
     return <p className="text-2xl text-center mt-10 text-white">Loading...</p>;
 
-  if (!crypto || crypto.length === 0)
+  if (!crypto ||crypto.length === 0)
     return (
       <p className="text-2xl text-center mt-10 text-white">
         No crypto data found.
