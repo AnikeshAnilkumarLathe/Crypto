@@ -2,7 +2,8 @@ import React from "react";
 import { universalContext } from "../Context/Context";
 
 function Filter() {
-  const { selectedPrice, setSelectedPrice, selectedCap, setSelectedCap } = universalContext();
+  const { selectedPrice, setSelectedPrice, selectedCap, 
+    setSelectedCap,gainLoss, setGainLoss } = universalContext();
 
   return (
     <div className="my-4 flex gap-2 items-center text-white">
@@ -32,6 +33,18 @@ function Filter() {
           <option value="1000000000-10000000000">1B - 10B</option>
           <option value="10000000000-100000000000">10B-100B</option>
           <option value="100000000000+">Above 100B</option>
+      </select>
+      </div>
+      <div>
+        <label>Gainers and losers</label>
+      <select
+        value={gainLoss}
+        onChange={(e) => setGainLoss(e.target.value)}
+        className="px-2 py-1 rounded bg-amber-50 text-black"
+      >
+        <option value="">All</option>
+          <option value="gainers">Top Gainers</option>
+          <option value="losers">Losers</option>
       </select>
       </div>
     </div>

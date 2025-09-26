@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
   const [results, setResults] = useState("");
   const [selectedPrice, setSelectedPrice] =useState("")
   const [selectedCap, setSelectedCap]= useState("")
+  const [gainLoss, setGainLoss]= useState("")
 
   useEffect(() => {
     const fetchCrypto = async () => {
@@ -35,7 +36,7 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{ crypto, load, results, setResults, selectedPrice, 
-    setSelectedPrice, selectedCap, setSelectedCap}}>
+    setSelectedPrice, selectedCap, setSelectedCap, gainLoss, setGainLoss}}>
       {children}
     </AppContext.Provider>
   );

@@ -6,7 +6,8 @@ import Search from "../Search/Search";
 import Filter from "../Filter/Filter";
 
 function Homepage() {
-  const { crypto, load, results, selectedPrice, selectedCap } = universalContext();
+  const { crypto, load, results, selectedPrice, selectedCap,
+     gainLoss, setGainLoss } = universalContext();
   const [current_page, setCurrent_page] = useState(1);
   const [coins_perpage] = useState(10);
 
@@ -32,8 +33,18 @@ function Homepage() {
       (c.name.toLowerCase().includes(results.toLowerCase()) ||
         c.symbol.toLowerCase().includes(results.toLowerCase())) &&
       (c.current_price >= min1 && c.current_price <= max1) &&  
-      (c.market_cap >= min2 && c.market_cap <= max2)
+      (c.market_cap >= min2 && c.market_cap <= max2) &&
+      (gainLoss=== "gainers" ? c.price_change_percentage_24h>0
+        : gainLoss=== "losers" ? c.price_change_percentage_24h<0 
+        : true )
+      
   );
+  if (gainLoss=== "gainers"){
+    filteredCoins.sort((a,b)=> b.price_change_percentage_24h- a.price_change_percentage_24h);
+  }else if(gainLoss=== "losers"){
+    filteredCoins.sort((a,b)=> a.price_change_percentage_24h- b.price_change_percentage_24h);
+  }
+  
 
   const lastCoinIndex = current_page * coins_perpage;
   const firstCoinIndex = lastCoinIndex - coins_perpage;
@@ -41,7 +52,7 @@ function Homepage() {
 
   useEffect(() => {
     setCurrent_page(1);
-  }, [results, selectedPrice, selectedCap]);
+  }, [results, selectedPrice, selectedCap, gainLoss]);
 
   if (load)
     return <p className="text-2xl text-center mt-10 text-white">Loading...</p>;
