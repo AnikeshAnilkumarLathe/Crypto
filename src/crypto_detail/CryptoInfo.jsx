@@ -13,8 +13,7 @@ function CoinDetails() {
     const fetchCoinData = async () => {
       try {
         setLoading(true);
-
-        const coinInfo = await fetch(
+      const coinInfo = await fetch(
           `https://api.coingecko.com/api/v3/coins/${id}`
         );
         const coinJson = await coinInfo.json();
@@ -28,15 +27,12 @@ function CoinDetails() {
         const labels = chartJson.prices.map((p) =>
           new Date(p[0]).toLocaleDateString()
         );
-        const prices = chartJson.prices.map((p) => p[1]);
+        const prices = chartJson.prices.map((p) =>p[1]);
       setChartData({
           labels,
           datasets: [
             {
-              label: `${coinJson.name} Price (USD)`,
-              data: prices,
-              fill: false,
-              borderColor: "yellow",
+              label:`${coinJson.name} Price (USD)`,data: prices,fill: false,borderColor: "yellow",
               tension: 0.1
             }
           ]

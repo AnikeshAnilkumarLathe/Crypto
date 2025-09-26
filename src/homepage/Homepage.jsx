@@ -7,7 +7,7 @@ import Filter from "../Filter/Filter";
 
 function Homepage() {
   const { crypto, load, results, selectedPrice, selectedCap,
-     gainLoss, setGainLoss } = universalContext();
+     gainLoss, setGainLoss, watchList, setWatchList } = universalContext();
   const [current_page, setCurrent_page] = useState(1);
   const [coins_perpage] = useState(10);
 
@@ -64,11 +64,32 @@ function Homepage() {
       </p>
     );
 
+  const handleAdd=(c)=>{
+    if(!watchList.includes(c.id)){
+      const newList= [...watchList, c.id];
+      setWatchList(newList);
+      localStorage.setItem("watchList", JSON.stringify(newList));
+     }
+    }
+  const handleRemove=(c)=>{
+    if(watchList.includes(c.id)){
+      const newList= watchList.filter((coinId)=> coinId!== c.id);
+      setWatchList(newList);
+      localStorage.setItem("watchList", JSON.stringify(newList));
+    }
+  }
+
   return (
     <div className="px-6 py-10 bg-gray-800 min-h-screen">
       <h2 className="text-5xl mb-5 text-center text-orange-500">Cryptos</h2>
       <Search />
-      <Filter />
+      <div className="flex items-center justify-between gap-4">
+    <Filter />
+    <NavLink
+      to="/watchList" className="bg-green-500 text-white px-4 py-2 rounded-md shadow hover:bg-green-600 transition"
+    > WatchList
+  </NavLink>
+    </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white rounded-lg shadow-md">
           <thead>
@@ -83,7 +104,9 @@ function Homepage() {
             </tr>
           </thead>
           <tbody>
-            {currentCoins.map((c) => (
+            {currentCoins.map((c) => {
+              const isAdded= watchList.includes(c.id);
+              return(
               <tr key={c.id} className="border-b text-center hover:bg-gray-100">
                 <td className="px-4 py-2">
                   <NavLink to={`/crypto/${c.id}`}>
@@ -106,8 +129,15 @@ function Homepage() {
                   {c.price_change_percentage_24h?.toFixed(2)}%
                 </td>
                 <td className="px-4 py-2">${c.total_volume.toLocaleString()}</td>
+                <td className="px-4 py-2">
+                  <button onClick={()=>isAdded? handleRemove(c): handleAdd(c)}
+                  className={`text-white text-sm px-3 py-1 rounded-md shadow-md transition 
+                  ${isAdded ? 'bg-red-500 hover:bg-red-700' : 'bg-orange-400 hover:bg-orange-700'}`}>
+                    {isAdded? "Remove": "Add"}
+                    </button></td>
               </tr>
-            ))}
+              )
+         })}
           </tbody>
         </table>
       </div>

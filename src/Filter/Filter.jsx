@@ -6,9 +6,9 @@ function Filter() {
     setSelectedCap,gainLoss, setGainLoss } = universalContext();
 
   return (
-    <div className="my-4 flex gap-2 items-center text-white">
-      <div>
-      <label>Price Range:</label>
+    <div className="my-3 flex gap-10 flex-wrap items-center text-white">
+      <div className="flex flex-col min-w-[120px]">
+      <label className="my-2">Price Range:</label>
       <select
         value={selectedPrice}
         onChange={(e) => setSelectedPrice(e.target.value)}
@@ -22,8 +22,8 @@ function Filter() {
         <option value="100000+">Above 100000</option>
       </select>
       </div>
-      <div>
-      <label>Market Cap Range:</label>
+      <div className="flex flex-col min-w-[120px]">
+      <label className="my-2">Market Cap Range:</label>
       <select
         value={selectedCap}
         onChange={(e) => setSelectedCap(e.target.value)}
@@ -35,8 +35,8 @@ function Filter() {
           <option value="100000000000+">Above 100B</option>
       </select>
       </div>
-      <div>
-        <label>Gainers and losers</label>
+      <div className="flex flex-col min-w-[120px]">
+        <label className="my-2">Gainers and losers</label>
       <select
         value={gainLoss}
         onChange={(e) => setGainLoss(e.target.value)}

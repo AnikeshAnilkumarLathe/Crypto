@@ -9,9 +9,16 @@ const AppProvider = ({ children }) => {
   const [selectedPrice, setSelectedPrice] =useState("")
   const [selectedCap, setSelectedCap]= useState("")
   const [gainLoss, setGainLoss]= useState("")
+  const [watchList, setWatchList] = useState(() => {
+    const stored= localStorage.getItem("watchList");
+    return stored? JSON.parse(stored) :[];
+  });
+  useEffect(()=>{
+    localStorage.setItem("watchList", JSON.stringify(watchList));
+  }, [watchList])
 
   useEffect(() => {
-    const fetchCrypto = async () => {
+    const fetchCrypto= async () => {
       setLoad(true);
       try {
         const res = await fetch(
@@ -27,7 +34,7 @@ const AppProvider = ({ children }) => {
       }
     };
 
-    const delay = setTimeout(() => {
+    const delay= setTimeout(() => {
       fetchCrypto();
     }, 1000);
 
@@ -36,7 +43,8 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{ crypto, load, results, setResults, selectedPrice, 
-    setSelectedPrice, selectedCap, setSelectedCap, gainLoss, setGainLoss}}>
+    setSelectedPrice, selectedCap, setSelectedCap, gainLoss, setGainLoss, 
+    watchList, setWatchList}}>
       {children}
     </AppContext.Provider>
   );
